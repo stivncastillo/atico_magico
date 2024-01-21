@@ -1,11 +1,27 @@
 import ProductCard from "@/components/products/productCard/ProductCard";
 import prisma from "@/lib/prisma";
 import Pagination from "../components/Pagination";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
-export const metadata = {
-  title: "Search",
-  description: "Search for products in the store.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string };
+}): Promise<Metadata> {
+  const category = await prisma.categories.findFirst({
+    where: {
+      slug: params.category,
+    },
+  });
+
+  if (!category) return notFound();
+
+  return {
+    title: `Categoría: ${category.name}`,
+    description: `${category.name} products`,
+  };
+}
 
 export default async function CategoryPage({
   params,

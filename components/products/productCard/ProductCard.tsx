@@ -23,7 +23,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product, badge }) => {
   return (
     <Card>
-      <Link href={`/product/productico`}>
+      <Link href={`/product/${product.slug}`}>
         <CardContent className="p-0 overflow-hidden">
           <div className="relative">
             {badge && (
@@ -52,7 +52,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, badge }) => {
           </div>
           <div className="p-4 space-y-1">
             <h3 className="text-lg font-medium truncate capitalize text-gray-600">
-              {product.id}
               {product.name.toLowerCase()}
             </h3>
             <div className="flex justify-start items-center gap-2">

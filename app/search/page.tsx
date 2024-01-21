@@ -3,8 +3,8 @@ import prisma from "@/lib/prisma";
 import Pagination from "./components/Pagination";
 
 export const metadata = {
-  title: "Search",
-  description: "Search for products in the store.",
+  title: "Productos",
+  description: "Busca productos en la tienda.",
 };
 
 export default async function Search({

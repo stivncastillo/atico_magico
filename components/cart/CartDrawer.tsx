@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Image from "next/image";
+import NumberPicker from "../form/NumberPicker";
 
 interface CartDrawerProps {}
 
@@ -54,37 +55,7 @@ const CartDrawer: React.FC<CartDrawerProps> = () => {
                   <span className="font-regular text-sm">$50.000</span>
                 </div>
 
-                <div>
-                  {/* Number picker */}
-                  <div className="relative flex items-center max-w-[8rem]">
-                    <button
-                      type="button"
-                      id="decrement-button"
-                      data-input-counter-decrement="quantity-input"
-                      className="rounded-s-lg border border-r-0 h-8 px-2"
-                    >
-                      <MinusIcon className="w-3 h-3 text-gray-900 dark:text-white" />
-                    </button>
-                    <input
-                      type="text"
-                      id="quantity-input"
-                      data-input-counter
-                      aria-describedby="helper-text-explanation"
-                      className="border-y h-8 text-center text-gray-900 text-sm block w-full py-2.5 "
-                      placeholder="999"
-                      required
-                      readOnly
-                    />
-                    <button
-                      type="button"
-                      id="increment-button"
-                      data-input-counter-increment="quantity-input"
-                      className="rounded-e-lg border border-l-0 h-8 px-2"
-                    >
-                      <PlusIcon className="w-3 h-3 text-gray-900 dark:text-white" />
-                    </button>
-                  </div>
-                </div>
+                <NumberPicker />
               </div>
             </li>
           </ul>

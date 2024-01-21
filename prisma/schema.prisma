@@ -32,6 +32,7 @@ model products {
   id          Int           @id @default(autoincrement())
   idReference String        @unique
   name        String
+  slug        String?
   description String
   categoryId  Int
   category    categories    @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade)

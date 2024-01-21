@@ -53,6 +53,7 @@ export default async function handler(
             name: product.descint,
             price: product.pcia,
             description,
+            slug: slugify(product.descint),
             idReference: product.idref,
             category: {
               connect: {
@@ -64,6 +65,7 @@ export default async function handler(
             name: product.descint,
             price: product.pcia,
             description,
+            slug: slugify(product.descint),
             idReference: product.idref,
             category: {
               connect: {

@@ -6,9 +6,14 @@ import React, { useState } from "react";
 interface ImageSliderProps {
   images: string[];
   productName: string;
+  size?: "sm" | "lg";
 }
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ images, productName }) => {
+const ImageSlider: React.FC<ImageSliderProps> = ({
+  images,
+  productName,
+  size = "sm",
+}) => {
   const [current, setCurrent] = useState(0);
 
   const handleLeft = (event: any) => {
@@ -25,7 +30,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, productName }) => {
 
   return (
     <div className="relative">
-      <div className="w-full h-64">
+      <div className={`w-full ${size === "sm" ? "h-64" : "h-[450px]"}`}>
         <img
           src={images[current]}
           className="w-full h-full object-cover aspect-square hover:scale-110 duration-150"
