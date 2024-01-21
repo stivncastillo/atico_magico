@@ -6,9 +6,10 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider = "sqlite"
+  url      = "file:./data.db"
+  // url      = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  // directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
 }
 
 model users {
@@ -16,5 +17,51 @@ model users {
   name      String
   email     String   @unique
   image     String
+  createdAt DateTime @default(now())
+}
+
+model categories {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  slug      String?
+  createdAt DateTime   @default(now())
+  products  products[]
+}
+
+model products {
+  id          Int           @id @default(autoincrement())
+  idReference String        @unique
+  name        String
+  description String
+  categoryId  Int
+  category    categories    @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  price       Float
+  featured    Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  images      images[]
+  carts       cartDetails[]
+}
+
+model images {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  product   products @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model cart {
+  cartIdentifier String        @id @default(uuid())
+  createdAt      DateTime      @default(now())
+  details        cartDetails[]
+}
+
+model cartDetails {
+  id        Int      @id @default(autoincrement())
+  cartId    String
+  cart      cart     @relation(fields: [cartId], references: [cartIdentifier], onUpdate: Cascade, onDelete: Cascade)
+  productId Int
+  product   products @relation(fields: [productId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  quantity  Int
   createdAt DateTime @default(now())
 }
