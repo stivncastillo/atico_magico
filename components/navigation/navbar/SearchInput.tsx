@@ -21,9 +21,11 @@ const SearchInput: React.FC<SearchInputProps> = () => {
     const newParams = new URLSearchParams(searchParams?.toString());
 
     if (search.value) {
+      newParams.delete("page");
       newParams.set("q", search.value);
     } else {
       newParams.delete("q");
+      newParams.delete("page");
     }
 
     router.push(createUrl("/search", newParams));

@@ -1,4 +1,4 @@
-import ProductGridSkeleton from "@/components/skeleton/productGridSkeleton";
+import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 
 export default function Loading() {
   return (

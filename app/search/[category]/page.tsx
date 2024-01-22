@@ -3,6 +3,7 @@ import prisma from "@/lib/prisma";
 import Pagination from "../components/Pagination";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { capitalize } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -18,7 +19,7 @@ export async function generateMetadata({
   if (!category) return notFound();
 
   return {
-    title: `Categoría: ${category.name}`,
+    title: `${capitalize(category.name)} | Ático Mágico`,
     description: `${category.name} products`,
   };
 }
@@ -58,7 +59,7 @@ export default async function CategoryPage({
 
   return (
     <>
-      <div className="flex flex-row justify-between items-center py-2">
+      <div className="flex flex-col md:flex-row justify-between items-center py-2 mb-4 md:mb-0">
         <h1 className="text-lg font-bold capitalize">
           Categoría: {params.category} ({totalProducts})
         </h1>
@@ -68,6 +69,7 @@ export default async function CategoryPage({
           {20 * (Number(pageValue) - 1) + allProducts?.length}
         </span>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {allProducts?.map((product) => (
           <ProductCard key={product.id} product={product} />

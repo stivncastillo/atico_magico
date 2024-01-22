@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import FeaturedProducts from "@/components/products/featuredProducts";
 import NewProducts from "@/components/products/newProducts";
-import ProductGridSkeleton from "@/components/skeleton/productGridSkeleton";
+import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 
 export const dynamic = "force-dynamic";
 

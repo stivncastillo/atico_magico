@@ -14,3 +14,8 @@ export const BADGE_PRODUCTS: {
     color: 'secondary',
   }
 }
+export const TAGS_COOKIES = {
+  categories: 'categories',
+  products: 'products',
+  cart: 'cart'
+};

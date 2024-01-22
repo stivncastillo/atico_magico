@@ -3,15 +3,15 @@ import ImageSlider from "@/components/products/productCard/ImageSlider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
-import { formatCOP } from "@/lib/utils";
+import { capitalize, formatCOP } from "@/lib/utils";
 import { ShoppingBagIcon } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import RelatedProducts from "./components/relatedProducts";
 import { Suspense } from "react";
-import ProductGridSkeleton from "@/components/skeleton/productGridSkeleton";
-import NumberPicker from "@/components/form/NumberPicker";
+import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
+import AddToCartButton from "@/components/buttons/AddToCartButton";
 
 export async function generateMetadata({
   params,
@@ -27,7 +27,7 @@ export async function generateMetadata({
   if (!product) return notFound();
 
   return {
-    title: `${product.name}`,
+    title: `${capitalize(product.name)} | Ático Mágico`,
     description: `${product.description}`,
   };
 }
@@ -97,13 +97,8 @@ export default async function Product({
                   </p>
                 </div>
                 <div className="mb-6 "></div>
-                <div className="flex justify-between flex-wrap items-center mb-6">
-                  <NumberPicker size="lg" />
-
-                  <Button className="group" size="lg">
-                    <ShoppingBagIcon className="h-4 w-4 mr-2 group-hover:animate-bounce" />{" "}
-                    Agregar al Carrito
-                  </Button>
+                <div className="flex flex-row mb-6">
+                  <AddToCartButton product={product} size="xl" />
                 </div>
               </div>
             </div>

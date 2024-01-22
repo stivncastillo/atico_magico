@@ -10,6 +10,7 @@ import { Prisma } from "@prisma/client";
 import { formatCOP } from "@/lib/utils";
 import { BADGE_PRODUCTS } from "@/lib/constants";
 import ImageSlider from "./ImageSlider";
+import AddToCartButton from "@/components/buttons/AddToCartButton";
 
 interface ProductCardProps {
   product: Prisma.productsGetPayload<{
@@ -63,10 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, badge }) => {
       </Link>
 
       <CardFooter className="p-4 pt-2">
-        <Button className="group w-full">
-          <ShoppingBagIcon className="h-4 w-4 mr-2 group-hover:animate-bounce" />{" "}
-          Agregar al Carrito
-        </Button>
+        <AddToCartButton product={product} />
       </CardFooter>
     </Card>
   );

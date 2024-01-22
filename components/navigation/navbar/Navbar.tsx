@@ -1,10 +1,11 @@
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 
 import NavigationMenu from "./NavigationMenu";
 import CartDrawer from "@/components/cart/CartDrawer";
 import SearchInput from "./SearchInput";
+import Cart from "@/components/cart/Cart";
 
 interface NavbarProps {}
 
@@ -19,24 +20,26 @@ const Navbar: React.FC<NavbarProps> = async () => {
     <div className="border-b">
       <div className="main-container flex justify-between">
         <div className="flex flex-1 h-16 items-center px-4">
-          <div className=" w-20">
+          <div className="w-16 md:w-20">
             <Image
               src="/logo.png"
               width={489}
               height={300}
               alt="Ático Mágico Logo"
-              className="w-20"
+              className="w-16 md:w-20"
               priority
             />
           </div>
           <NavigationMenu categories={categories} />
         </div>
-        <div className="flex flex-1 ml-auto items-center space-x-4">
+        <div className="hidden md:flex flex-1 ml-auto items-center space-x-4">
           <SearchInput />
         </div>
         <div className="flex flex-1 ml-auto items-center space-x-4 justify-end">
           <div className=" ">
-            <CartDrawer />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Cart />
+            </Suspense>
           </div>
         </div>
       </div>

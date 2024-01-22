@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import Pagination from "./components/Pagination";
 
 export const metadata = {
-  title: "Productos",
+  title: "Productos | Ático Mágico",
   description: "Busca productos en la tienda.",
 };
 
@@ -41,7 +41,7 @@ export default async function Search({
   return (
     <>
       <div className="flex flex-row justify-between items-center py-2">
-        <h1 className="text-lg font-bold capitalize">
+        <h1 className="text-lg font-bold">
           Todos los productos ({totalProducts})
         </h1>
 
@@ -56,11 +56,7 @@ export default async function Search({
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {allProducts?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+
       <Pagination page={pageValue} totalPages={totalPages} path="/search" />
     </>
   );
