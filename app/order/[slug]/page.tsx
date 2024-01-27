@@ -1,7 +1,8 @@
+import { notFound } from "next/navigation";
+
 import ProductCart from "@/components/products/productCart/ProductCart";
 import prisma from "@/lib/prisma";
 import { formatCOP } from "@/lib/utils";
-import { notFound } from "next/navigation";
 
 export default async function Order({ params }: { params: { slug: string } }) {
   const order = await prisma.order.findFirst({

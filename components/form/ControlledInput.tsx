@@ -1,8 +1,11 @@
 import React from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
+
 import { Control, Controller } from "react-hook-form";
+
 import { cn } from "@/lib/utils";
+
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 interface ControlledInputProps {
   name: string;

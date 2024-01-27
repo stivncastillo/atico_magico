@@ -1,11 +1,15 @@
 "use client";
 
-import { removeItem } from "@/components/cart/actions";
-import { useToast } from "@/components/ui/use-toast";
+import React, { useEffect } from "react";
+
 import { cartDetails } from "@prisma/client";
 import { Loader2Icon, XIcon } from "lucide-react";
-import React, { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+
+import { removeItem } from "@/components/cart/actions";
+import { useToast } from "@/components/ui/use-toast";
+
+
 
 interface DeleteProductCartButtonProps {
   detail: cartDetails;

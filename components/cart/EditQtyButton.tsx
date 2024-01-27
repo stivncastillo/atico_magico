@@ -1,10 +1,12 @@
 "use client";
 
 import React from "react";
+
+import { cartDetails } from "@prisma/client";
 import { Loader2Icon, MinusIcon, PlusIcon } from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
+
 import { updateItemQuantity } from "./actions";
-import { cartDetails } from "@prisma/client";
 
 interface EditQtyButtonProps {
   type: "minus" | "plus";

@@ -2,8 +2,9 @@
 
 import { Prisma } from "@prisma/client";
 import { cookies } from "next/headers";
-import prisma from "@/lib/prisma";
 import { v4 as uuidv4 } from 'uuid';
+
+import prisma from "@/lib/prisma";
 
 type OrderData = {
   name: string;

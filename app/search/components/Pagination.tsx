@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
-import { createUrl } from "@/lib/utils";
+
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
+import { createUrl } from "@/lib/utils";
 
 interface PaginationProps {
   page: number;

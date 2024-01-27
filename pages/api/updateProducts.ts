@@ -1,9 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 
+
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { products } from '@prisma/client';
+import { put } from '@vercel/blob';
 
 import prisma from '@/lib/prisma'
 
@@ -20,7 +22,7 @@ export default async function handler(
 ) {
   try {
     let page = 0;
-    const limit = 100;
+    const limit = 1;
     let hasMoreData = true;
     const currentDate = new Date();
 
@@ -100,6 +102,7 @@ export default async function handler(
         }
       }
       page++;
+      hasMoreData = false;
     }
 
     // set outOfStock to products not updated
@@ -155,9 +158,13 @@ async function downloadAndSaveImages(images: Image[], saveDirectory: string, pro
         // Save image to local file
         fs.writeFileSync(imagePath, Buffer.from(buffer));
 
+        // save to vercel blob
+        const blob = await put(imageName as string, fs.readFileSync(imagePath), { access: 'public'});
+        console.log("👻 ~ downloadAndSaveImages ~ blob:", blob);
+
         await prisma.images.create({
           data: {
-            url: imageName as string,
+            url: blob.url,
             productId: product.id,
           }
         });

@@ -1,7 +1,7 @@
-import ms from 'ms'
 import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import ms from 'ms'
 import { ReadonlyURLSearchParams } from 'next/navigation'
+import { twMerge } from "tailwind-merge"
 
 export const timeAgo = (timestamp: Date, timeOnly?: boolean): string => {
   if (!timestamp) return 'never'

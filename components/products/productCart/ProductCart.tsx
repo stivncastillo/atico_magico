@@ -1,11 +1,16 @@
-import EditQtyButton from "@/components/cart/EditQtyButton";
-import { capitalize, formatCOP } from "@/lib/utils";
+import React from "react";
+
 import { Prisma, products } from "@prisma/client";
 import { XIcon } from "lucide-react";
 import Image from "next/image";
-import React from "react";
-import DeleteProductCartButton from "./DeleteProductCartButton";
+
+import EditQtyButton from "@/components/cart/EditQtyButton";
 import { PRODUCT_IMAGES_PATH } from "@/lib/constants";
+import { capitalize, formatCOP } from "@/lib/utils";
+
+
+import DeleteProductCartButton from "./DeleteProductCartButton";
+
 
 interface ProductCartProps {
   detail: Prisma.cartDetailsGetPayload<{

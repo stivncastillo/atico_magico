@@ -1,9 +1,10 @@
-import Navbar from "@/components/navigation/navbar/Navbar";
 import "./globals.css";
+import { FacebookIcon, InstagramIcon } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import { FacebookIcon, InstagramIcon } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+
+import Navbar from "@/components/navigation/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {

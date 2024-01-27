@@ -1,10 +1,13 @@
 "use client";
 
 import React from "react";
-import { Input } from "@/components/ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
-import { createUrl } from "@/lib/utils";
+
 import { XIcon } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { Input } from "@/components/ui/input";
+import { createUrl } from "@/lib/utils";
+
 
 interface SearchInputProps {}
 

@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
+
 import { Prisma } from "@prisma/client";
+import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import { ChevronRightIcon } from "lucide-react";
 
 interface FiltersProps {
   categories?: Array<Prisma.categoriesGetPayload<{}>>;

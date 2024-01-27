@@ -1,5 +1,9 @@
 "use client";
 import React from "react";
+
+import { Prisma } from "@prisma/client";
+import Link from "next/link";
+
 import {
   NavigationMenu as NacigationMenuPkg,
   NavigationMenuContent,
@@ -10,8 +14,6 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { Prisma } from "@prisma/client";
 
 interface NavigationMenuProps {
   categories?: Array<Prisma.categoriesGetPayload<{}>>;

@@ -1,6 +1,7 @@
 import React from "react";
-import { Label } from "../ui/label";
+
 import { Control, Controller } from "react-hook-form";
+
 import {
   Select,
   SelectContent,
@@ -10,6 +11,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+
+import { Label } from "../ui/label";
 
 interface ControlledSelectProps {
   name: string;

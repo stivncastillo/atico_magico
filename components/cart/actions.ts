@@ -2,9 +2,10 @@
 
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
-import prisma from "@/lib/prisma";
 import { v4 as uuidv4 } from 'uuid';
+
 import { TAGS_COOKIES } from '@/lib/constants';
+import prisma from "@/lib/prisma";
 
 export async function addItem(prevState: any, itemId: number) {
   let cartId = cookies().get('cartId')?.value;
