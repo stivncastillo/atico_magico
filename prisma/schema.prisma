@@ -29,6 +29,7 @@ model products {
   categoryId  Int
   category    categories    @relation(fields: [categoryId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   price       Float
+  profit       Float
   featured    Boolean       @default(false)
   outOfStock  Boolean       @default(false)
   newProduct  Boolean       @default(false)

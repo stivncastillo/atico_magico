@@ -1,8 +1,11 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import prisma from '@/lib/prisma'
 import fs from 'fs';
 import path from 'path';
+
+import type { NextApiRequest, NextApiResponse } from 'next'
+
 import { products } from '@prisma/client';
+
+import prisma from '@/lib/prisma'
 
 type ResponseData = {
   message: string
@@ -69,6 +72,7 @@ export default async function handler(
           create: {
             name: product.descint,
             price: product.pcia,
+            profit: 1.5,
             description,
             slug: slugify(product.descint),
             idReference: product.idref,

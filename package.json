@@ -11,9 +11,6 @@
     "lint": "next lint",
     "migrate:postgres": "dotenv -e .env.local -- npx prisma migrate deploy"
   },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-  },
   "dependencies": {
     "@prisma/client": "^5.4.1",
     "@radix-ui/react-checkbox": "^1.0.4",
