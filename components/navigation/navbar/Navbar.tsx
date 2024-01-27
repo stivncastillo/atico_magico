@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Image from "next/image";
 
 import Cart from "@/components/cart/Cart";
+import prisma from "@/lib/prisma";
 
 import NavigationMenu from "./NavigationMenu";
 import SearchInput from "./SearchInput";

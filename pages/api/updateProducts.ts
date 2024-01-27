@@ -22,7 +22,7 @@ export default async function handler(
 ) {
   try {
     let page = 0;
-    const limit = 1;
+    const limit = 100;
     let hasMoreData = true;
     const currentDate = new Date();
 
@@ -59,17 +59,7 @@ export default async function handler(
             idReference: product.idref,
           },
           update: {
-            name: product.descint,
-            price: product.pcia,
-            description,
-            slug: slugify(product.descint),
-            idReference: product.idref,
             updatedDate: currentDate,
-            category: {
-              connect: {
-                id: category.id,
-              }
-            },
           },
           create: {
             name: product.descint,
@@ -102,7 +92,6 @@ export default async function handler(
         }
       }
       page++;
-      hasMoreData = false;
     }
 
     // set outOfStock to products not updated
@@ -160,7 +149,6 @@ async function downloadAndSaveImages(images: Image[], saveDirectory: string, pro
 
         // save to vercel blob
         const blob = await put(imageName as string, fs.readFileSync(imagePath), { access: 'public'});
-        console.log("👻 ~ downloadAndSaveImages ~ blob:", blob);
 
         await prisma.images.create({
           data: {

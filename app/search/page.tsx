@@ -1,4 +1,3 @@
-import ProductCard from "@/components/products/productCard/ProductCard";
 import prisma from "@/lib/prisma";
 
 import Pagination from "./components/Pagination";

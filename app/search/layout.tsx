@@ -1,3 +1,5 @@
+import prisma from "@/lib/prisma";
+
 import Filters from "./components/Filters";
 
 export default async function SearchLayout({
