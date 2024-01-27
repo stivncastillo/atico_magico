@@ -55,10 +55,10 @@ export default function RootLayout({
                 <div className="flex flex-col gap-2">
                   <h3 className="text-sm text-center md:text-left">Síguenos</h3>
                   <div className="flex flex-row gap-2">
-                    <a href="#">
+                    <a href="https://instagram.com/aticomagico.ventas">
                       <InstagramIcon className="h-6 w-6 hover:text-primary transition-all" />
                     </a>
-                    <a href="#">
+                    <a href="https://www.facebook.com/people/Atico-Magico/61555341675125/">
                       <FacebookIcon className="h-6 w-6 hover:text-primary transition-all" />
                     </a>
 

@@ -5,6 +5,7 @@ import { XIcon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import DeleteProductCartButton from "./DeleteProductCartButton";
+import { PRODUCT_IMAGES_PATH } from "@/lib/constants";
 
 interface ProductCartProps {
   detail: Prisma.cartDetailsGetPayload<{
@@ -16,16 +17,20 @@ interface ProductCartProps {
       };
     };
   }>;
+  withActions?: boolean;
 }
 
-const ProductCart: React.FC<ProductCartProps> = ({ detail }) => {
+const ProductCart: React.FC<ProductCartProps> = ({
+  detail,
+  withActions = true,
+}) => {
   const product = detail.product;
   return (
     <div className="flex flex-row gap-4">
       <div className="relative border rounded group">
-        <DeleteProductCartButton detail={detail} />
+        {withActions && <DeleteProductCartButton detail={detail} />}
         <Image
-          src={product.images[0]?.url}
+          src={PRODUCT_IMAGES_PATH + product.images[0]?.url}
           alt={product.name}
           className="w-16 h-16 object-contain rounded-t-md"
           width={499}
@@ -46,14 +51,15 @@ const ProductCart: React.FC<ProductCartProps> = ({ detail }) => {
             {formatCOP(product.price * detail.quantity)}
           </span>
         </div>
-
-        <div className="ml-auto flex h-9 flex-row items-center rounded  border border-neutral-200 dark:border-neutral-700">
-          <EditQtyButton type="minus" detail={detail} />
-          <p className="w-6 text-center">
-            <span className="w-full text-sm">{detail.quantity}</span>
-          </p>
-          <EditQtyButton type="plus" detail={detail} />
-        </div>
+        {withActions && (
+          <div className="ml-auto flex h-9 flex-row items-center rounded  border border-neutral-200 dark:border-neutral-700">
+            <EditQtyButton type="minus" detail={detail} />
+            <p className="w-6 text-center">
+              <span className="w-full text-sm">{detail.quantity}</span>
+            </p>
+            <EditQtyButton type="plus" detail={detail} />
+          </div>
+        )}
       </div>
     </div>
   );

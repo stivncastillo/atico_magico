@@ -1,9 +1,13 @@
+import { Metadata } from "next";
+
+import { notFound } from "next/navigation";
+
 import ProductCard from "@/components/products/productCard/ProductCard";
 import prisma from "@/lib/prisma";
-import Pagination from "../components/Pagination";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
 import { capitalize } from "@/lib/utils";
+
+import Pagination from "../components/Pagination";
+import ProductGrid from "../components/ProductGrid";
 
 export async function generateMetadata({
   params,
@@ -70,11 +74,7 @@ export default async function CategoryPage({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {allProducts?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ProductGrid products={allProducts} />
       <Pagination
         page={pageValue}
         totalPages={totalPages}

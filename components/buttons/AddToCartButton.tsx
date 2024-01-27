@@ -1,10 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import { Button } from "../ui/button";
+
+import { products } from "@prisma/client";
 import { Loader2Icon, ShoppingBagIcon } from "lucide-react";
 import { useFormState, useFormStatus } from "react-dom";
+
 import { addItem } from "../cart/actions";
-import { products } from "@prisma/client";
+import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 
 type Size = "sm" | "default" | "lg" | "xl";
@@ -12,9 +14,13 @@ type Size = "sm" | "default" | "lg" | "xl";
 interface AddToCartButtonProps {
   product: products;
   size?: Size;
+  disabled?: boolean;
 }
 
-const SubmitButton: React.FC<{ size: Size }> = ({ size }) => {
+const SubmitButton: React.FC<{ size: Size; disabled?: boolean }> = ({
+  size,
+  disabled,
+}) => {
   const { pending } = useFormStatus();
   return (
     <Button
@@ -23,14 +29,14 @@ const SubmitButton: React.FC<{ size: Size }> = ({ size }) => {
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
       }}
-      disabled={pending}
+      disabled={pending || disabled}
     >
       {pending ? (
-        <Loader2Icon className="animate-spin h-4 w-4 mr-2" />
+        <Loader2Icon className="animate-spin h-4 w-4 mr-2 hidden md:block" />
       ) : (
-        <ShoppingBagIcon className="h-4 w-4 mr-2 group-hover:animate-bounce" />
+        <ShoppingBagIcon className="h-4 w-4 mr-2 group-hover:animate-bounce hidden md:block" />
       )}
-      Agregar al Carrito
+      {disabled ? "Agotado" : "Agregar al Carrito"}
     </Button>
   );
 };
@@ -38,6 +44,7 @@ const SubmitButton: React.FC<{ size: Size }> = ({ size }) => {
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   product,
   size = "default",
+  disabled,
 }) => {
   const { toast } = useToast();
   const [state, formAction] = useFormState(addItem, null);
@@ -54,7 +61,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 
   return (
     <form action={actionWithVariant} className="w-full">
-      <SubmitButton size={size} />
+      <SubmitButton size={size} disabled={disabled} />
     </form>
   );
 };

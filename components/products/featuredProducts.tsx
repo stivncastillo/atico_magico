@@ -1,4 +1,4 @@
-import ProductCard from "./productCard/ProductCard";
+import ProductGrid from "@/app/search/components/ProductGrid";
 import prisma from "@/lib/prisma";
 
 export default async function FeaturedProducts() {
@@ -15,11 +15,5 @@ export default async function FeaturedProducts() {
     },
   });
 
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {products.map((product) => (
-        <ProductCard key={product.name} product={product} badge="featured" />
-      ))}
-    </div>
-  );
+  return <ProductGrid products={products} />;
 }

@@ -1,6 +1,9 @@
 import React from "react";
+
 import { cookies } from "next/headers";
+
 import prisma from "@/lib/prisma";
+
 import CartDrawer from "./CartDrawer";
 
 interface CartProps {}

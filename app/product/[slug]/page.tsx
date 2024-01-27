@@ -1,17 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
+import { Metadata } from "next";
+
+import { Suspense } from "react";
+
+import { ShoppingBagIcon } from "lucide-react";
+import Image from "next/image";
+import { notFound } from "next/navigation";
+
+import AddToCartButton from "@/components/buttons/AddToCartButton";
+import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import ImageSlider from "@/components/products/productCard/ImageSlider";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { PRODUCT_IMAGES_PATH } from "@/lib/constants";
 import prisma from "@/lib/prisma";
 import { capitalize, formatCOP } from "@/lib/utils";
-import { ShoppingBagIcon } from "lucide-react";
-import { Metadata } from "next";
-import Image from "next/image";
-import { notFound } from "next/navigation";
+
 import RelatedProducts from "./components/relatedProducts";
-import { Suspense } from "react";
-import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
-import AddToCartButton from "@/components/buttons/AddToCartButton";
 
 export async function generateMetadata({
   params,
@@ -50,19 +55,21 @@ export default async function Product({
 
   return (
     <main className="main-container flex min-h-screen flex-col justify-start pt-8">
-      <section className="py-10 font-poppins dark:bg-gray-800">
+      <section className=" font-poppins dark:bg-gray-800">
         <div className="max-w-6xl px-4 mx-auto">
-          <div className="flex flex-wrap mb-24 -mx-4">
-            <div className="w-full px-4 mb-8 md:w-1/2 md:mb-0">
+          <div className="flex flex-wrap mb-8 md:mb-24 -mx-4">
+            <div className="w-full md:px-4 mb-8 md:w-1/2 md:mb-0">
               {product.images.length > 1 ? (
                 <ImageSlider
-                  images={product.images.map((image) => image.url)}
+                  images={product.images.map(
+                    (image) => PRODUCT_IMAGES_PATH + image.url
+                  )}
                   productName={product.name}
                   size="lg"
                 />
               ) : (
                 <Image
-                  src={product.images[0]?.url}
+                  src={PRODUCT_IMAGES_PATH + product.images[0]?.url}
                   alt={product.name}
                   className="w-full h-[450px] object-cover rounded-t-md hover:scale-110 duration-150"
                   width={499}
@@ -71,7 +78,7 @@ export default async function Product({
                 />
               )}
             </div>
-            <div className="w-full px-4 md:w-1/2">
+            <div className="w-full md:px-4 md:w-1/2">
               <div className="lg:pl-20">
                 <div className="mb-6 ">
                   <Badge className="mb-2" variant="info">
@@ -97,8 +104,12 @@ export default async function Product({
                   </p>
                 </div>
                 <div className="mb-6 "></div>
-                <div className="flex flex-row mb-6">
-                  <AddToCartButton product={product} size="xl" />
+                <div className="flex flex-row md:mb-6">
+                  <AddToCartButton
+                    product={product}
+                    size="xl"
+                    disabled={product.outOfStock}
+                  />
                 </div>
               </div>
             </div>

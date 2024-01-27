@@ -1,7 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import React, { useState } from "react";
+
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 interface ImageSliderProps {
   images: string[];
@@ -30,7 +31,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
 
   return (
     <div className="relative">
-      <div className={`w-full ${size === "sm" ? "h-64" : "h-[450px]"}`}>
+      <div
+        className={`w-full ${
+          size === "sm" ? "h-32 md:h-64" : "h-64 md:h-[450px]"
+        }`}
+      >
         <img
           src={images[current]}
           className="w-full h-full object-cover aspect-square hover:scale-110 duration-150"
@@ -47,7 +52,7 @@ export default ImageSlider;
 
 const ButtonLeft = ({ onClick }: { onClick: (event: any) => void }) => (
   <button
-    className="absolute top-1/2 left-0 hover:scale-125 duration-100 rounded-full p-1 transform active:scale-100 transition-transform"
+    className="absolute top-1/2 left-0 hover:scale-125 duration-100 rounded-full p-1 transform active:scale-100 transition-transform text-primary-500"
     onClick={onClick}
   >
     <ChevronLeftIcon className="h-8 w-8" />
@@ -56,7 +61,7 @@ const ButtonLeft = ({ onClick }: { onClick: (event: any) => void }) => (
 
 const ButtonRigth = ({ onClick }: { onClick: (event: any) => void }) => (
   <button
-    className="absolute top-1/2 right-0 hover:scale-125 duration-100 rounded-full p-1 transform active:scale-100 transition-transform"
+    className="absolute top-1/2 right-0 hover:scale-125 duration-100 rounded-full p-1 transform active:scale-100 transition-transform text-primary-500"
     onClick={onClick}
   >
     <ChevronRightIcon className="h-8 w-8" />

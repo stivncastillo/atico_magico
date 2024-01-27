@@ -1,6 +1,8 @@
 import ProductCard from "@/components/products/productCard/ProductCard";
 import prisma from "@/lib/prisma";
+
 import Pagination from "./components/Pagination";
+import ProductGrid from "./components/ProductGrid";
 
 export const metadata = {
   title: "Productos | Ático Mágico",
@@ -51,12 +53,7 @@ export default async function Search({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {allProducts?.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-
+      <ProductGrid products={allProducts} />
       <Pagination page={pageValue} totalPages={totalPages} path="/search" />
     </>
   );

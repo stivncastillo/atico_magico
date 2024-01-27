@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
+
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
+
+import Cart from "@/components/cart/Cart";
 
 import NavigationMenu from "./NavigationMenu";
-import CartDrawer from "@/components/cart/CartDrawer";
 import SearchInput from "./SearchInput";
-import Cart from "@/components/cart/Cart";
 
 interface NavbarProps {}
 
