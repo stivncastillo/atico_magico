@@ -142,10 +142,10 @@ async function downloadAndSaveImages(images: Image[], saveDirectory: string, pro
       // Check if the response is successful (status code 200)
       if (response.ok) {
         // Get the image data as ArrayBuffer
-        const buffer = await response.arrayBuffer();
+        // const buffer = await response.arrayBuffer();
 
         // Save image to local file
-        fs.writeFileSync(imagePath, Buffer.from(buffer));
+        // fs.writeFileSync(imagePath, Buffer.from(buffer));
 
         // save to vercel blob
         const blob = await put(imageName as string, fs.readFileSync(imagePath), { access: 'public'});

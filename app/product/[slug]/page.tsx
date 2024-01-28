@@ -3,7 +3,6 @@ import { Metadata } from "next";
 
 import { Suspense } from "react";
 
-import { ShoppingBagIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -11,8 +10,6 @@ import AddToCartButton from "@/components/buttons/AddToCartButton";
 import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import ImageSlider from "@/components/products/productCard/ImageSlider";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { PRODUCT_IMAGES_PATH } from "@/lib/constants";
 import prisma from "@/lib/prisma";
 import { capitalize, formatCOP } from "@/lib/utils";
 
@@ -61,15 +58,13 @@ export default async function Product({
             <div className="w-full md:px-4 mb-8 md:w-1/2 md:mb-0">
               {product.images.length > 1 ? (
                 <ImageSlider
-                  images={product.images.map(
-                    (image) => PRODUCT_IMAGES_PATH + image.url
-                  )}
+                  images={product.images.map((image) => image.url)}
                   productName={product.name}
                   size="lg"
                 />
               ) : (
                 <Image
-                  src={PRODUCT_IMAGES_PATH + product.images[0]?.url}
+                  src={product.images[0]?.url}
                   alt={product.name}
                   className="w-full h-[450px] object-cover rounded-t-md hover:scale-110 duration-150"
                   width={499}

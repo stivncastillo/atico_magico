@@ -5,12 +5,9 @@ import { XIcon } from "lucide-react";
 import Image from "next/image";
 
 import EditQtyButton from "@/components/cart/EditQtyButton";
-import { PRODUCT_IMAGES_PATH } from "@/lib/constants";
 import { capitalize, formatCOP } from "@/lib/utils";
 
-
 import DeleteProductCartButton from "./DeleteProductCartButton";
-
 
 interface ProductCartProps {
   detail: Prisma.cartDetailsGetPayload<{
@@ -35,7 +32,7 @@ const ProductCart: React.FC<ProductCartProps> = ({
       <div className="relative border rounded group">
         {withActions && <DeleteProductCartButton detail={detail} />}
         <Image
-          src={PRODUCT_IMAGES_PATH + product.images[0]?.url}
+          src={product.images[0]?.url}
           alt={product.name}
           className="w-16 h-16 object-contain rounded-t-md"
           width={499}

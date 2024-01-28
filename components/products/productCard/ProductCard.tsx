@@ -7,7 +7,7 @@ import Link from "next/link";
 import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { BADGE_PRODUCTS, PRODUCT_IMAGES_PATH } from "@/lib/constants";
+import { BADGE_PRODUCTS } from "@/lib/constants";
 import { formatCOP } from "@/lib/utils";
 
 import ImageSlider from "./ImageSlider";
@@ -46,14 +46,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, badge }) => {
             )}
             {product.images.length > 1 ? (
               <ImageSlider
-                images={product.images.map(
-                  (image) => PRODUCT_IMAGES_PATH + image.url
-                )}
+                images={product.images.map((image) => image.url)}
                 productName={product.name}
               />
             ) : (
               <Image
-                src={PRODUCT_IMAGES_PATH + product.images[0]?.url}
+                src={product.images[0]?.url}
                 alt={product.name}
                 className="w-full h-32 md:h-64 object-cover rounded-t-md hover:scale-110 duration-150"
                 width={499}
