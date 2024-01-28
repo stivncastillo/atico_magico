@@ -1,6 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 
+export const metadata = {
+  title: "Términos y Condiciones | Ático Mágico",
+  description:
+    "Somos una tienda virtual de ventas y novedades, con productos de alta calidad y a los mejores precios.",
+};
+
 export default function Terms() {
   return (
     <main className="main-container flex min-h-screen flex-col justify-start pt-8">

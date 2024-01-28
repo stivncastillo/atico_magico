@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: `${capitalize(category.name)} | Ático Mágico`,
-    description: `${category.name} products`,
+    description: `Productos de ${category.name}`,
   };
 }
 

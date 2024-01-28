@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Prisma, products } from "@prisma/client";
-import { XIcon } from "lucide-react";
+import { Prisma } from "@prisma/client";
 import Image from "next/image";
 
 import EditQtyButton from "@/components/cart/EditQtyButton";

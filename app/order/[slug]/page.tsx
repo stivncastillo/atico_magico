@@ -1,8 +1,29 @@
+import { Metadata } from "next";
+
 import { notFound } from "next/navigation";
 
 import ProductCart from "@/components/products/productCart/ProductCart";
 import prisma from "@/lib/prisma";
 import { formatCOP } from "@/lib/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const order = await prisma.order.findFirst({
+    where: {
+      orderIdentifier: params.slug,
+    },
+  });
+
+  if (!order) return notFound();
+
+  return {
+    title: `Orden # ${order.orderNumber} | Ático Mágico`,
+    description: `Resumen de la orden #${order.orderNumber}`,
+  };
+}
 
 export default async function Order({ params }: { params: { slug: string } }) {
   const order = await prisma.order.findFirst({

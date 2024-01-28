@@ -8,6 +8,10 @@ import OrderForm from "./components/OrderForm";
 
 export const dynamic = "force-dynamic";
 
+export const metadata = {
+  title: "Checkout | Ático Mágico",
+};
+
 export default async function Checkout() {
   const cartId = cookies().get("cartId")?.value;
   let cart;
