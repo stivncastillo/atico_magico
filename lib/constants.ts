@@ -7,7 +7,7 @@ export const BADGE_PRODUCTS: {
 } = {
   new: {
     text: 'Nuevo',
-    color: 'default',
+    color: 'info',
   },
   featured: {
     text: 'Destacado',

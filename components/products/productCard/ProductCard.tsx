@@ -21,28 +21,27 @@ interface ProductCardProps {
   badge?: keyof typeof BADGE_PRODUCTS;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, badge }) => {
+function getBadge(product: ProductCardProps["product"]) {
+  if (product.outOfStock) return "outOfStock";
+  if (product.newProduct) return "new";
+  if (product.featured) return "featured";
+  return null;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const badge = getBadge(product);
   return (
     <Card>
       <Link href={`/product/${product.slug}`}>
         <CardContent className="p-0 overflow-hidden">
           <div className="relative">
-            {product.outOfStock ? (
+            {badge && (
               <Badge
                 className="absolute top-2 right-2 z-[1]"
-                variant={BADGE_PRODUCTS["outOfStock"].color}
+                variant={BADGE_PRODUCTS[badge].color}
               >
-                {BADGE_PRODUCTS["outOfStock"].text}
+                {BADGE_PRODUCTS[badge].text}
               </Badge>
-            ) : (
-              badge && (
-                <Badge
-                  className="absolute top-2 right-2 z-[1]"
-                  variant={BADGE_PRODUCTS[badge].color}
-                >
-                  {BADGE_PRODUCTS[badge].text}
-                </Badge>
-              )
             )}
             {product.images.length > 1 ? (
               <ImageSlider

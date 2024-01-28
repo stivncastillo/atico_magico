@@ -3,6 +3,9 @@ import prisma from "@/lib/prisma";
 
 export default async function NewProducts() {
   const products = await prisma.products.findMany({
+    where: {
+      newProduct: true,
+    },
     take: 4,
     orderBy: {
       createdAt: "desc",
