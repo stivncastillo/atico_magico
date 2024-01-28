@@ -19,7 +19,7 @@ export default async function Search({
   const allProducts = await prisma?.products.findMany({
     where: {
       name: {
-        contains: searchValue,
+        search: searchValue.toUpperCase(),
       },
     },
     include: {
@@ -33,7 +33,7 @@ export default async function Search({
   const totalProducts = await prisma?.products.count({
     where: {
       name: {
-        contains: searchValue,
+        search: searchValue.toUpperCase(),
       },
     },
   });

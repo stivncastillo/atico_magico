@@ -49,7 +49,7 @@ const ProductCart: React.FC<ProductCartProps> = ({
             {capitalize(product.name)}
           </h3>
           <span className="font-regular text-sm">
-            {formatCOP(product.price * detail.quantity)}
+            {formatCOP(product.price * product.profit * detail.quantity)}
           </span>
         </div>
         {withActions && (

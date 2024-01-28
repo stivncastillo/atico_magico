@@ -38,7 +38,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ cart }) => {
 
   const total =
     cart?.details.reduce(
-      (acc, detail) => acc + detail.product.price * detail.quantity,
+      (acc, detail) =>
+        acc + detail.product.price * detail.product.profit * detail.quantity,
       0
     ) || 0;
   return (
