@@ -5,7 +5,7 @@ import { Prisma } from "@prisma/client";
 import Link from "next/link";
 
 import {
-  NavigationMenu as NacigationMenuPkg,
+  NavigationMenu as NavigationMenuPkg,
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
@@ -13,7 +13,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { cn } from "@/lib/utils";
 
 interface NavigationMenuProps {
   categories?: Array<Prisma.categoriesGetPayload<{}>>;
@@ -21,7 +20,7 @@ interface NavigationMenuProps {
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({ categories }) => {
   return (
-    <NacigationMenuPkg>
+    <NavigationMenuPkg>
       <NavigationMenuList>
         <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
@@ -51,7 +50,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ categories }) => {
           </NavigationMenuItem>
         )}
       </NavigationMenuList>
-    </NacigationMenuPkg>
+    </NavigationMenuPkg>
   );
 };
 

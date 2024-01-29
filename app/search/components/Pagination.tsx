@@ -15,7 +15,6 @@ interface PaginationProps {
 }
 
 const Pagination: React.FC<PaginationProps> = ({ page, totalPages, path }) => {
-  console.log("👻 ~ path:", path);
   const searchParams = useSearchParams();
   const router = useRouter();
   return (
@@ -34,7 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, totalPages, path }) => {
         <ChevronLeftIcon className="h-4 w-4" />
       </Button>
       <Button
-        disabled={page === totalPages}
+        disabled={page === totalPages || totalPages === 0}
         className=""
         variant="outline"
         size="icon"

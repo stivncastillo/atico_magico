@@ -19,7 +19,7 @@ export default async function Search({
   const allProducts = await prisma?.products.findMany({
     where: {
       name: {
-        search: searchValue.toUpperCase(),
+        contains: searchValue?.toUpperCase() || "",
       },
     },
     include: {
@@ -33,7 +33,7 @@ export default async function Search({
   const totalProducts = await prisma?.products.count({
     where: {
       name: {
-        search: searchValue.toUpperCase(),
+        contains: searchValue?.toUpperCase() || "",
       },
     },
   });
@@ -43,7 +43,7 @@ export default async function Search({
     <>
       <div className="flex flex-row justify-between items-center py-2">
         <h1 className="text-lg font-bold">
-          Todos los productos ({totalProducts})
+          {searchValue ? `Busueda: '${searchValue}'` : "Todos los productos"}
         </h1>
 
         <span className="text-sm text-gray-500">

@@ -159,6 +159,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
             <AlertDescription>
               El valor del envío se calcula en el momento de la compra.
             </AlertDescription>
+            <AlertDescription>
+              Envío gratis por compras superiores a $150.000
+            </AlertDescription>
           </Alert>
         </div>
 
