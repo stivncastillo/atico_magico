@@ -8,7 +8,7 @@ import Navbar from "@/components/navigation/navbar/Navbar";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
-  metadataBase: new URL("https://postgres-prisma.vercel.app"),
+  metadataBase: new URL("https://www.aticomagico.com"),
   title: "Inicio | Ático Mágico",
   description:
     "Somos una tienda virtual de ventas y novedades, con productos de alta calidad y a los mejores precios.",
