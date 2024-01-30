@@ -1,4 +1,5 @@
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { FacebookIcon, InstagramIcon } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
@@ -74,6 +75,7 @@ export default function RootLayout({
         </footer>
         <Toaster />
       </body>
+      <GoogleAnalytics gaId="G-00GQ771JV8" />
     </html>
   );
 }
