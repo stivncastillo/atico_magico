@@ -64,9 +64,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               {product.name.toLowerCase()}
             </h3>
             <div className="flex justify-start items-center gap-2">
-              <span className="font-bold">
-                {formatCOP(product.price * product.profit)}
-              </span>
+              <span className="font-bold">{formatCOP(product.price)}</span>
               {/* <span className="line-through text-sm text-gray">68.000</span> */}
             </div>
           </div>

@@ -9,7 +9,7 @@ import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
 import { FaWhatsapp } from "react-icons/fa";
 
-import Checkbox from "@/components/form/Checkbox";
+import ControlledCheckbox from "@/components/form/ControlledCheckbox";
 import ControlledInput from "@/components/form/ControlledInput";
 import ControlledSelect from "@/components/form/ControlledSelect";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -66,7 +66,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
   });
 
   const onSubmit = (data: FormData) => {
-    const { id, ...payload } = data;
+    const { id, terms, ...payload } = data;
     if (cart) {
       const actionSaveOrder = formAction.bind(null, {
         ...payload,
@@ -99,8 +99,9 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
             <MapPinnedIcon className="h-4 w-4" />
             <AlertTitle>Importante</AlertTitle>
             <AlertDescription>
-              La ordén se enviará a travez de whatsapp, por favor indique un
-              número de whatsapp válido.
+              El detalle de su pedido se enviará a su correo electrónico. Luego
+              uno de nuestros agentes se comunicará con usted vía Whatsapp para
+              coordinar el pago y el envío.
             </AlertDescription>
           </Alert>
         </div>
@@ -157,9 +158,6 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
             <AlertTitle>Importante</AlertTitle>
             <AlertDescription>Envíos a todo Colombia.</AlertDescription>
             <AlertDescription>
-              El valor del envío se calcula en el momento de la compra.
-            </AlertDescription>
-            <AlertDescription>
               Envío gratis por compras superiores a $150.000
             </AlertDescription>
           </Alert>
@@ -209,9 +207,13 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
             <Textarea {...register("notes")} />
           </div>
           <div className="flex-1">
-            <Checkbox
+            <ControlledCheckbox
               id="terms"
-              {...register("terms", { required: true })}
+              name="terms"
+              control={control as any}
+              rules={{
+                required: true,
+              }}
               className={cn(errors.terms && "border-red-500")}
             >
               <Label
@@ -223,7 +225,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
                   términos y condiciones
                 </Link>
               </Label>
-            </Checkbox>
+            </ControlledCheckbox>
           </div>
         </div>
 
@@ -231,7 +233,7 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
           className="text-white w-full mt-4"
           size="xl"
           variant="success"
-          // disabled={!isValid}
+          disabled={!isValid}
         >
           <FaWhatsapp className="mr-2" />
           Hacer Pedido

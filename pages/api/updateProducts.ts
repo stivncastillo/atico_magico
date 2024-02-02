@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 
-
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { products } from '@prisma/client';
@@ -21,13 +20,17 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   try {
+    if (process.env.NODE_ENV !== 'development') {
+      return res.status(200).json({ message: 'This endpoint is disabled in production' });
+    }
+
     let page = 0;
     const limit = 100;
     let hasMoreData = true;
     const currentDate = new Date();
 
     while (hasMoreData) {
-      const response = await fetch(`https://us-central1-mi-catalogo-1f031.cloudfunctions.net/api/variedades_tv_cali/product?storage_id=GEN&custom_order=news&limit=${limit}&page=${page}`)
+      const response = await fetch(`${process.env.CATALOG_URL}?storage_id=GEN&custom_order=news&limit=${limit}&page=${page}`)
       const data = await response.json();
 
       if (data.length === 0) {
@@ -141,12 +144,6 @@ async function downloadAndSaveImages(images: Image[], saveDirectory: string, pro
 
       // Check if the response is successful (status code 200)
       if (response.ok) {
-        // Get the image data as ArrayBuffer
-        // const buffer = await response.arrayBuffer();
-
-        // Save image to local file
-        // fs.writeFileSync(imagePath, Buffer.from(buffer));
-
         // save to vercel blob
         const blob = await put(imageName as string, fs.readFileSync(imagePath), { access: 'public'});
 

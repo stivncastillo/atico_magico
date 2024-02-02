@@ -86,7 +86,7 @@ export default async function Product({
                   <p className="inline-block text-2xl font-semibold text-gray-700 dark:text-gray-400 ">
                     <span>{formatCOP(product.price)}</span>
                     <span className="ml-3 text-base font-normal text-gray-500 line-through dark:text-gray-400">
-                      {formatCOP(product.price * product.profit)}
+                      {formatCOP(product.price)}
                     </span>
                   </p>
                 </div>

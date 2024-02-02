@@ -1,6 +1,8 @@
 "use client";
 import React, { FormEventHandler } from "react";
 
+import { Control, useController } from "react-hook-form";
+
 import { cn } from "@/lib/utils";
 
 import { Checkbox as CheckboxUI } from "../ui/checkbox";
@@ -9,11 +11,13 @@ import { Label } from "../ui/label";
 interface CheckboxProps {
   id: string;
   label?: string;
-  name?: string;
+  name: string;
   checked?: boolean;
   onChange?: FormEventHandler<HTMLButtonElement>;
   className?: string;
   children?: React.ReactNode;
+  control: Control;
+  rules?: any;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -21,10 +25,14 @@ const Checkbox: React.FC<CheckboxProps> = ({
   name,
   label,
   checked,
-  onChange,
   className,
   children,
+  control,
+  rules,
 }) => {
+  const {
+    field: { onChange },
+  } = useController({ name, control, rules });
   return (
     <div className="flex items-center space-x-2">
       <CheckboxUI
@@ -32,7 +40,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         id={id}
         name={name}
         checked={checked}
-        onChange={onChange}
+        onCheckedChange={onChange}
       />
       {label && <Label htmlFor={id}>{label}</Label>}
       {children}

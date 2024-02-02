@@ -40,3 +40,5 @@ yarn-error.log*
 
 # db
 /prisma/data.db
+
+/pages/api/input.xlsx

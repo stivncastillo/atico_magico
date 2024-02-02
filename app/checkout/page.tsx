@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma";
 import { formatCOP } from "@/lib/utils";
 
 import OrderForm from "./components/OrderForm";
+import departments from "../../lib/departments.json";
 
 export const dynamic = "force-dynamic";
 
@@ -37,26 +38,18 @@ export default async function Checkout() {
 
   const total =
     cart?.details.reduce(
-      (acc, detail) =>
-        acc + detail.product.price * detail.product.profit * detail.quantity,
+      (acc, detail) => acc + detail.product.price * detail.quantity,
       0
     ) || 0;
-
-  const departmentsFetch = await fetch(
-    "https://api-colombia.com/api/v1/Department"
-  );
-  const departments = await departmentsFetch.json();
 
   return (
     <main className="main-container flex min-h-[calc(100vh_-_180px)] flex-col justify-start">
       <div className="grid grid-cols-1 md:grid-cols-3">
         <OrderForm departments={departments} cart={cart} />
 
-        {/* Product list */}
         <div className="md:pl-4 pt-8">
           <div className=" sticky top-0">
             <h2 className="text-2xl font-bold">Resumen</h2>
-            {/* TODO: suspense */}
             {cart ? (
               <ul className="flex-1 flex flex-col overflow-auto">
                 {cart?.details.map((detail) => (

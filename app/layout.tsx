@@ -64,7 +64,10 @@ export default function RootLayout({
                       <FacebookIcon className="h-6 w-6 hover:text-primary transition-all" />
                     </a>
 
-                    <a href="#">
+                    <a
+                      href={`https:/wa.me/${process.env.NEXT_PUBLIC_PHONE_NUMBER}`}
+                      target="_blank"
+                    >
                       <FaWhatsapp className="h-6 w-6 hover:text-primary transition-all" />
                     </a>
                   </div>
