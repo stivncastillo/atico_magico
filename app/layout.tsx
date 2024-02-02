@@ -5,7 +5,9 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { FaWhatsapp } from "react-icons/fa";
 
+import FloatButton from "@/components/buttons/FloatButton";
 import Navbar from "@/components/navigation/navbar/Navbar";
+import SearchInput from "@/components/navigation/navbar/SearchInput";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata = {
@@ -30,6 +32,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         <Navbar />
+
+        <div className="flex md:hidden ml-auto px-4 my-4">
+          <SearchInput />
+        </div>
+
         {children}
 
         <footer>
@@ -76,6 +83,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <FloatButton />
         <Toaster />
       </body>
       <GoogleAnalytics gaId="G-00GQ771JV8" />

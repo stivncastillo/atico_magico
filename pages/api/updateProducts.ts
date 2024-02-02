@@ -7,6 +7,7 @@ import { products } from '@prisma/client';
 import { put } from '@vercel/blob';
 
 import prisma from '@/lib/prisma'
+import { slugify } from '@/lib/utils';
 
 type ResponseData = {
   message: string
@@ -116,17 +117,7 @@ export default async function handler(
   }
 }
 
-const slugify = (text: string) => {
-  return text.toString().toLowerCase()
-    .replace(/\s+/g, '-')           // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-    .replace(/^-+/, '')             // Trim - from start of text
-    .replace(/-+$/, '')             // Trim - from end of text
-    .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-async function downloadAndSaveImages(images: Image[], saveDirectory: string, product: products): Promise<void> {
+export async function downloadAndSaveImages(images: Image[], saveDirectory: string, product: products): Promise<void> {
   try {
     // Create save directory if it doesn't exist
     if (!fs.existsSync(saveDirectory)) {

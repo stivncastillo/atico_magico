@@ -1,14 +1,15 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Prisma } from "@prisma/client";
-import { MapPinnedIcon } from "lucide-react";
+import { MapPinnedIcon, SendIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { useForm } from "react-hook-form";
-import { FaWhatsapp } from "react-icons/fa";
+import { FaEnvelope, FaWhatsapp } from "react-icons/fa";
 
+import Captchat from "@/components/form/captchat/Captchat";
 import ControlledCheckbox from "@/components/form/ControlledCheckbox";
 import ControlledInput from "@/components/form/ControlledInput";
 import ControlledSelect from "@/components/form/ControlledSelect";
@@ -53,6 +54,7 @@ type FormData = {
 
 const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
   const [state, formAction] = useFormState(saveOrder, null);
+  const [verified, setVerified] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
@@ -227,15 +229,18 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
               </Label>
             </ControlledCheckbox>
           </div>
+
+          <div>
+            <Captchat onVerify={setVerified} />
+          </div>
         </div>
 
         <Button
           className="text-white w-full mt-4"
           size="xl"
-          variant="success"
-          disabled={!isValid}
+          disabled={!isValid || !verified}
         >
-          <FaWhatsapp className="mr-2" />
+          <SendIcon className="mr-2" />
           Hacer Pedido
         </Button>
       </form>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import AddToCartButton from "@/components/buttons/AddToCartButton";
+import GuaranteePolicy from "@/components/feedback/guaranteePolicy";
 import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import ImageSlider from "@/components/products/productCard/ImageSlider";
 import { Badge } from "@/components/ui/badge";
@@ -97,6 +98,8 @@ export default async function Product({
                   <p className="mt-2 text-base text-gray-800 dark:text-blue-200">
                     {product.description}
                   </p>
+
+                  <GuaranteePolicy />
                 </div>
                 <div className="mb-6 "></div>
                 <div className="flex flex-row md:mb-6">

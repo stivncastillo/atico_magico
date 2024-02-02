@@ -42,3 +42,5 @@ yarn-error.log*
 /prisma/data.db
 
 /pages/api/input.xlsx
+
+.envTest
