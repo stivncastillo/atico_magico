@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 
+import { cache } from "react";
+
 import { notFound } from "next/navigation";
 
-import ProductCard from "@/components/products/productCard/ProductCard";
 import prisma from "@/lib/prisma";
 import { capitalize } from "@/lib/utils";
 
@@ -28,6 +29,35 @@ export async function generateMetadata({
   };
 }
 
+export const revalidate = 3600;
+
+const getProducts = cache(
+  async ({ slug, pageValue }: { slug: string; pageValue: number }) => {
+    return await prisma?.products.findMany({
+      where: {
+        category: {
+          slug: slug,
+        },
+      },
+      include: {
+        images: true,
+      },
+      take: 20,
+      skip: 20 * (Number(pageValue) - 1),
+    });
+  }
+);
+
+const getTotal = cache(async ({ slug }: { slug: string }) => {
+  return await prisma?.products.count({
+    where: {
+      category: {
+        slug,
+      },
+    },
+  });
+});
+
 export default async function CategoryPage({
   params,
   searchParams,
@@ -38,27 +68,8 @@ export default async function CategoryPage({
   const { page } = searchParams as { [key: string]: string };
   const pageValue = Number(page) || 1;
 
-  const allProducts = await prisma?.products.findMany({
-    where: {
-      category: {
-        slug: params.category,
-      },
-    },
-    include: {
-      images: true,
-    },
-    take: 20,
-    skip: 20 * (Number(pageValue) - 1),
-  });
-
-  // total products
-  const totalProducts = await prisma?.products.count({
-    where: {
-      category: {
-        slug: params.category,
-      },
-    },
-  });
+  const allProducts = await getProducts({ slug: params.category, pageValue });
+  const totalProducts = await getTotal({ slug: params.category });
   const totalPages = Math.ceil(totalProducts / 20);
 
   return (

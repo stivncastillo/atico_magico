@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import prisma from "@/lib/prisma";
 
 import Pagination from "./components/Pagination";
@@ -8,6 +10,41 @@ export const metadata = {
   description: "Busca productos en la tienda.",
 };
 
+export const revalidate = 3600;
+
+const getAllProducts = cache(
+  async ({
+    searchValue,
+    pageValue,
+  }: {
+    searchValue?: string;
+    pageValue: number;
+  }) => {
+    return await prisma.products.findMany({
+      where: {
+        name: {
+          contains: searchValue?.toUpperCase() || "",
+        },
+      },
+      include: {
+        images: true,
+      },
+      take: 20,
+      skip: 20 * (Number(pageValue) - 1),
+    });
+  }
+);
+
+const getTotal = cache(async ({ searchValue }: { searchValue?: string }) => {
+  return await prisma.products.count({
+    where: {
+      name: {
+        contains: searchValue?.toUpperCase() || "",
+      },
+    },
+  });
+});
+
 export default async function Search({
   searchParams,
 }: {
@@ -16,27 +53,8 @@ export default async function Search({
   const { q: searchValue, page } = searchParams as { [key: string]: string };
   const pageValue = Number(page) || 1;
 
-  const allProducts = await prisma?.products.findMany({
-    where: {
-      name: {
-        contains: searchValue?.toUpperCase() || "",
-      },
-    },
-    include: {
-      images: true,
-    },
-    take: 20,
-    skip: 20 * (Number(pageValue) - 1),
-  });
-
-  // total products
-  const totalProducts = await prisma?.products.count({
-    where: {
-      name: {
-        contains: searchValue?.toUpperCase() || "",
-      },
-    },
-  });
+  const allProducts = await getAllProducts({ searchValue, pageValue });
+  const totalProducts = await getTotal({ searchValue });
   const totalPages = Math.ceil(totalProducts / 20);
 
   return (

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { Metadata } from "next";
 
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
 
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -16,17 +16,20 @@ import { capitalize, formatCOP } from "@/lib/utils";
 
 import RelatedProducts from "./components/relatedProducts";
 
+const getProduct = cache(async (slug: string) => {
+  return await prisma.products.findFirst({
+    where: {
+      slug,
+    },
+  });
+});
+
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const product = await prisma.products.findFirst({
-    where: {
-      slug: params.slug,
-    },
-  });
-
+  const product = await getProduct(params.slug);
   if (!product) return notFound();
 
   return {

@@ -1,8 +1,12 @@
+import { cache } from "react";
+
 import ProductGrid from "@/app/search/components/ProductGrid";
 import prisma from "@/lib/prisma";
 
-export default async function FeaturedProducts() {
-  const products = await prisma.products.findMany({
+export const revalidate = 3600;
+
+const getFeaturedProducts = cache(async () => {
+  return await prisma.products.findMany({
     take: 4,
     orderBy: {
       createdAt: "desc",
@@ -14,6 +18,10 @@ export default async function FeaturedProducts() {
       images: true,
     },
   });
+});
+
+export default async function FeaturedProducts() {
+  const products = await getFeaturedProducts();
 
   return <ProductGrid products={products} />;
 }
