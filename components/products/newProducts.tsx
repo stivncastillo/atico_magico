@@ -12,7 +12,7 @@ const getNewProducts = cache(async () => {
       createdAt: "desc",
     },
     where: {
-      featured: true,
+      newProduct: true,
     },
     include: {
       images: true,
