@@ -3,6 +3,8 @@ import React from "react";
 
 import { Prisma } from "@prisma/client";
 
+import { formatCOP } from "@/lib/utils";
+
 interface OrderEmailClientProps {
   order: Prisma.orderGetPayload<{
     include: {
@@ -65,6 +67,10 @@ const OrderEmailClient: React.FC<OrderEmailClientProps> = ({ order }) => {
               {detail.product.name} (X{detail.quantity})
             </li>
           ))}
+
+          <li>
+            Total: <strong>{formatCOP(order.total)}</strong>
+          </li>
         </ul>
 
         <a
