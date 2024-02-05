@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { Resend } from 'resend';
 import { v4 as uuidv4 } from 'uuid';
 
+import { orderEmailAdmin } from "@/components/emails/order/admin";
 import OrderEmail from "@/components/emails/order/client";
 import prisma from "@/lib/prisma";
 
@@ -119,22 +120,33 @@ function formatNumber(num: number): string {
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
-  const { data, error } = await resend.emails.send({
+  const payload = {
     from: from,
-    to: [to, process.env.EMAIL_CC ?? ''],
     subject: `Tu orden ${order.orderNumber} ha sido creada`,
     text: `Tu orden ${order.orderNumber} ha sido creada`,
+
+  }
+  const { data, error } = await resend.emails.send({
+    ...payload,
+    to: [to],
     react: OrderEmail({ order }),
   });
 
-  if (error) {
+  const { data: dataAdmin, error: errorAdmin } = await resend.emails.send({
+    ...payload,
+    to: [process.env.EMAIL_CC ?? ''],
+    subject: `${process.env.NODE_ENV === "development" ? '[PRUEBA] - ':  ''}Nueva Orden ${order.orderNumber} ha sido creada`,
+    text: orderEmailAdmin({order}),
+  });
+
+  if (error || errorAdmin) {
     return {
       message: 'Error enviando el correo',
       error: true
     }
   }
 
-  console.log("Email sent: ", data);
+  console.log("Email sent: ", data, dataAdmin);
 };
 
 export default sendEmail;

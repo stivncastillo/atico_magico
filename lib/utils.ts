@@ -38,3 +38,12 @@ export const slugify = (text: string) => {
     .replace(/-+$/, '')
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
+
+export const formatDate = (date: Date) => {
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`
+
+}
