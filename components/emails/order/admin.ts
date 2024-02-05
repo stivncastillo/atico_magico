@@ -57,6 +57,6 @@ export const orderEmailAdmin = ({order}: OrderEmailAdminProps) => (
   ${process.env.NEXT_PUBLIC_PHONE_NUMBER}
   aticomagicoparati@gmail.com
   ¡Síguenos!
-  aticomagico.ventas
-  https://www.facebook.com/profile.php?id=61555341675125`
+  Instagram: https://www.instagram.com/aticomagico.ventas/
+  Facebook: https://www.facebook.com/profile.php?id=61555341675125`
 )
