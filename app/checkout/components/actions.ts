@@ -132,12 +132,16 @@ const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: Send
     react: OrderEmail({ order }),
   });
 
+  console.log("Email client sent: ", data, error);
+
   const { data: dataAdmin, error: errorAdmin } = await resend.emails.send({
     ...payload,
     to: [process.env.EMAIL_CC ?? ''],
     subject: `${process.env.NODE_ENV === "development" ? '[PRUEBA] - ':  ''}Nueva Orden ${order.orderNumber} ha sido creada`,
     text: orderEmailAdmin({order}),
   });
+
+  console.log("Email admin sent: ", dataAdmin, errorAdmin);
 
   if (error || errorAdmin) {
     return {

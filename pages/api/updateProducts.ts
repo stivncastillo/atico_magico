@@ -30,7 +30,18 @@ export default async function handler(
     let hasMoreData = true;
     const currentDate = new Date();
 
+    // remove new products
+      await prisma.products.updateMany({
+        where: {
+          newProduct: true,
+        },
+        data: {
+          newProduct: false,
+        }
+      });
+
     while (hasMoreData) {
+      console.log("👻 ~ page:", page);
       const response = await fetch(`${process.env.CATALOG_URL}?storage_id=GEN&custom_order=news&limit=${limit}&page=${page}`)
       const data = await response.json();
 
@@ -40,6 +51,7 @@ export default async function handler(
       }
 
       for (const product of data) {
+        console.log("👻 ~ product:", product.idref);
         // get or create categories
         const categoryName = product.categorias ? product.categorias.split('/')[0].trim() : 'Sin categoría';
         let category = await prisma.categories.findFirst({
@@ -72,6 +84,7 @@ export default async function handler(
             description,
             slug: slugify(product.descint),
             idReference: product.idref,
+            newProduct: true,
             category: {
               connect: {
                 id: category.id,
@@ -136,7 +149,7 @@ export async function downloadAndSaveImages(images: Image[], saveDirectory: stri
       // Check if the response is successful (status code 200)
       if (response.ok) {
         // save to vercel blob
-        const blob = await put(imageName as string, fs.readFileSync(imagePath), { access: 'public'});
+        const blob = await put(imageName as string, await response.blob(), { access: 'public'});
 
         await prisma.images.create({
           data: {
@@ -144,6 +157,7 @@ export async function downloadAndSaveImages(images: Image[], saveDirectory: stri
             productId: product.id,
           }
         });
+        console.log("👻 ~ save image:", imageName);
       } else {
         console.error(`Failed to download image: ${imageName} (Status: ${response.status})`);
       }
