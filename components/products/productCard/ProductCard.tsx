@@ -21,7 +21,7 @@ interface ProductCardProps {
   badge?: keyof typeof BADGE_PRODUCTS;
 }
 
-function getBadge(product: ProductCardProps["product"]) {
+export function getBadge(product: ProductCardProps["product"]) {
   if (product.outOfStock) return "outOfStock";
   if (product.newProduct) return "new";
   if (product.featured) return "featured";

@@ -10,7 +10,9 @@ import AddToCartButton from "@/components/buttons/AddToCartButton";
 import GuaranteePolicy from "@/components/feedback/guaranteePolicy";
 import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import ImageSlider from "@/components/products/productCard/ImageSlider";
+import { getBadge } from "@/components/products/productCard/ProductCard";
 import { Badge } from "@/components/ui/badge";
+import { BADGE_PRODUCTS } from "@/lib/constants";
 import prisma from "@/lib/prisma";
 import { capitalize, formatCOP } from "@/lib/utils";
 
@@ -53,6 +55,7 @@ export default async function Product({
   });
 
   if (!product) return notFound();
+  const badge = getBadge(product);
 
   return (
     <main className="main-container flex min-h-screen flex-col justify-start pt-8">
@@ -80,9 +83,14 @@ export default async function Product({
             <div className="w-full md:px-4 md:w-1/2">
               <div className="lg:pl-20">
                 <div className="mb-6 ">
-                  <Badge className="mb-2" variant="info">
-                    Nuevo
-                  </Badge>
+                  {badge && (
+                    <Badge
+                      className="mb-2"
+                      variant={BADGE_PRODUCTS[badge].color}
+                    >
+                      {BADGE_PRODUCTS[badge].text}
+                    </Badge>
+                  )}
                   <h2 className="max-w-xl mt-6 mb-6 text-xl font-semibold leading-loose tracking-wide text-gray-700 md:text-2xl dark:text-gray-300">
                     {product.name}
                   </h2>
