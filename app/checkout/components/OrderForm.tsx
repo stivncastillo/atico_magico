@@ -220,11 +220,18 @@ const OrderForm: React.FC<OrderFormProps> = ({ departments, cart }) => {
             >
               <Label
                 htmlFor="terms"
-                className={cn(errors.terms && "text-red-500")}
+                className={cn(
+                  errors.terms && "text-red-500",
+                  "flex flex-row gap-1"
+                )}
               >
                 Acepto los{" "}
                 <Link href="/terms" className="text-violet-500">
                   términos y condiciones
+                </Link>
+                y
+                <Link href="/privacy" className="text-violet-500">
+                  política de datos
                 </Link>
               </Label>
             </ControlledCheckbox>
