@@ -18,6 +18,13 @@ const Filters: React.FC<FiltersProps> = ({ categories }) => {
       <li>
         <Item name="Todos" href={`/search`} isActive={!selectedLayoutSegment} />
       </li>
+      <li>
+        <Item
+          name="Nuevos"
+          href={`/search/nuevos`}
+          isActive={selectedLayoutSegment === "nuevos"}
+        />
+      </li>
       {categories?.map((category) => (
         <li key={category.id}>
           <Item

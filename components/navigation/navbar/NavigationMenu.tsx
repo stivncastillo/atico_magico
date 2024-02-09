@@ -37,6 +37,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({ categories }) => {
                 <NavigationMenuItemComp href="/search">
                   Todos
                 </NavigationMenuItemComp>
+                <NavigationMenuItemComp href="/search/nuevos">
+                  Nuevos{" "}
+                  <div className="w-2 h-2 rounded-full bg-primary-500"></div>
+                </NavigationMenuItemComp>
                 {categories?.map((category) => (
                   <NavigationMenuItemComp
                     href={`/search/${category.slug}`}
@@ -68,7 +72,7 @@ const NavigationMenuItemComp = ({
       <NavigationMenuLink asChild>
         <Link href={href} legacyBehavior passHref>
           <a className="block select-none p-3 leading-none outline-none transition-colors hover:bg-primary-100 hover:underline focus:bg-accent focus:text-accent-foreground">
-            <div className="text-sm font-medium leading-none capitalize">
+            <div className="flex flex-row items-center gap-2 text-sm font-medium leading-none capitalize">
               {children}
             </div>
           </a>

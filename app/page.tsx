@@ -1,11 +1,13 @@
 import { Suspense } from "react";
 
-import { PackagePlusIcon, StarIcon } from "lucide-react";
+import { MapPinnedIcon, PackagePlusIcon, StarIcon } from "lucide-react";
+import Image from "next/image";
 
 import Carousel from "@/components/display/Carousel";
 import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import FeaturedProducts from "@/components/products/featuredProducts";
 import NewProducts from "@/components/products/newProducts";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +26,10 @@ export default function Home() {
           <Suspense fallback={<ProductGridSkeleton />}>
             <FeaturedProducts />
           </Suspense>
+        </section>
+
+        <section className="my-8">
+          <Image src="/banner2.png" alt="Hero" width={1400} height={200} />
         </section>
 
         <section className="mb-8">

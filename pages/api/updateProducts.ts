@@ -31,17 +31,16 @@ export default async function handler(
     const currentDate = new Date();
 
     // remove new products
-      await prisma.products.updateMany({
-        where: {
-          newProduct: true,
-        },
-        data: {
-          newProduct: false,
-        }
-      });
+    await prisma.products.updateMany({
+      where: {
+        newProduct: true,
+      },
+      data: {
+        newProduct: false,
+      }
+    });
 
     while (hasMoreData) {
-      console.log("👻 ~ page:", page);
       const response = await fetch(`${process.env.CATALOG_URL}?storage_id=GEN&custom_order=news&limit=${limit}&page=${page}`)
       const data = await response.json();
 
@@ -85,27 +84,22 @@ export default async function handler(
             slug: slugify(product.descint),
             idReference: product.idref,
             newProduct: true,
+            updatedDate: currentDate,
             category: {
               connect: {
                 id: category.id,
               }
             },
           },
+          include: {
+            images: true,
+          }
         });
 
-        if (productDB) {
-          // get or create images
-          const images = await prisma.images.findMany({
-            where: {
-              productId: productDB.id,
-            }
-          });
-
-          if (images.length === 0) {
-            const imagesArray = custom?.images ?? [{image_url: product.url_imagen}];
-            // download images to public/products folder
-            await downloadAndSaveImages(imagesArray, path.join(process.cwd(), 'public', 'products'), productDB);
-          }
+        if (productDB.images.length === 0) {
+          const imagesArray = custom?.images ?? [{image_url: product.url_imagen}];
+          // download images to public/products folder
+          await downloadAndSaveImages(imagesArray, path.join(process.cwd(), 'public', 'products'), productDB);
         }
       }
       page++;

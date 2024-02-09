@@ -7,7 +7,7 @@ export const revalidate = 3600;
 
 const getNewProducts = cache(async () => {
   return await prisma.products.findMany({
-    take: 4,
+    take: 8,
     orderBy: {
       createdAt: "desc",
     },

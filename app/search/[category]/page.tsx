@@ -15,11 +15,20 @@ export async function generateMetadata({
 }: {
   params: { category: string };
 }): Promise<Metadata> {
-  const category = await prisma.categories.findFirst({
+  let category = await prisma.categories.findFirst({
     where: {
       slug: params.category,
     },
   });
+
+  if (params.category === "nuevos") {
+    category = {
+      id: 0,
+      name: "Nuevos",
+      slug: "nuevos",
+      createdAt: new Date(),
+    };
+  }
 
   if (!category) return notFound();
 
@@ -33,12 +42,9 @@ export const revalidate = 3600;
 
 const getProducts = cache(
   async ({ slug, pageValue }: { slug: string; pageValue: number }) => {
+    const where = slug === "nuevos" ? { newProduct: true } : { slug };
     return await prisma?.products.findMany({
-      where: {
-        category: {
-          slug: slug,
-        },
-      },
+      where,
       include: {
         images: true,
       },
@@ -49,12 +55,9 @@ const getProducts = cache(
 );
 
 const getTotal = cache(async ({ slug }: { slug: string }) => {
+  const where = slug === "nuevos" ? { newProduct: true } : { slug };
   return await prisma?.products.count({
-    where: {
-      category: {
-        slug,
-      },
-    },
+    where,
   });
 });
 
