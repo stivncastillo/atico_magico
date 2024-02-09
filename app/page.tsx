@@ -19,7 +19,7 @@ export default function Home() {
           <Carousel />
         </section>
         <section className="mb-8">
-          <h2 className="font-bold mb-4 uppercase flex flex-row items-center">
+          <h2 className="text-xl font-bold mb-4 uppercase flex flex-row items-center">
             <StarIcon className="mr-2 text-amber-500" />
             Productos Destacados
           </h2>
@@ -33,7 +33,7 @@ export default function Home() {
         </section>
 
         <section className="mb-8">
-          <h2 className="font-bold mb-4 uppercase flex flex-row items-center">
+          <h2 className="text-xl font-bold mb-4 uppercase flex flex-row items-center">
             <PackagePlusIcon className="mr-2 text-info-500" /> Productos Nuevos
           </h2>
           <Suspense fallback={<ProductGridSkeleton />}>

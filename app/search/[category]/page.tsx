@@ -42,7 +42,9 @@ export const revalidate = 3600;
 
 const getProducts = cache(
   async ({ slug, pageValue }: { slug: string; pageValue: number }) => {
-    const where = slug === "nuevos" ? { newProduct: true } : { slug };
+    const where =
+      slug === "nuevos" ? { newProduct: true } : { category: { slug } };
+    console.log("👻 ~ where:", where);
     return await prisma?.products.findMany({
       where,
       include: {
@@ -55,7 +57,8 @@ const getProducts = cache(
 );
 
 const getTotal = cache(async ({ slug }: { slug: string }) => {
-  const where = slug === "nuevos" ? { newProduct: true } : { slug };
+  const where =
+    slug === "nuevos" ? { newProduct: true } : { category: { slug } };
   return await prisma?.products.count({
     where,
   });
@@ -72,6 +75,7 @@ export default async function CategoryPage({
   const pageValue = Number(page) || 1;
 
   const allProducts = await getProducts({ slug: params.category, pageValue });
+
   const totalProducts = await getTotal({ slug: params.category });
   const totalPages = Math.ceil(totalProducts / 20);
 
