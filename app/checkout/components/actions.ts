@@ -46,6 +46,7 @@ type SendEmailData = {
       };
     };
   }>;
+  test?: boolean;
 }
 
 export const saveOrder = async (prevState: any, data: OrderData) => {
@@ -119,7 +120,7 @@ function formatNumber(num: number): string {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
+export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
   const payload = {
     from: from,
     subject: `Tu orden ${order.orderNumber} ha sido creada`,
