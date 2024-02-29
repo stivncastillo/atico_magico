@@ -8,7 +8,6 @@ import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import FeaturedProducts from "@/components/products/featuredProducts";
 import NewProducts from "@/components/products/newProducts";
 
-// export const dynamic = "force-dynamic";
 export const revalidate = 7200;
 
 export default function Home() {
