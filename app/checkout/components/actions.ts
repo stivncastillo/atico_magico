@@ -49,6 +49,43 @@ type SendEmailData = {
   test?: boolean;
 }
 
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
+  const payload = {
+    from: from,
+    subject: `Tu orden ${order.orderNumber} ha sido creada`,
+    text: `Tu orden ${order.orderNumber} ha sido creada`,
+  }
+
+  const { data, error } = await resend.emails.send({
+    ...payload,
+    to: [to],
+    react: OrderEmail({ order }),
+  });
+
+  console.log("Email client sent: ", data, error);
+
+  const { data: dataAdmin, error: errorAdmin } = await resend.emails.send({
+    ...payload,
+    to: [process.env.EMAIL_CC ?? ''],
+    subject: `${process.env.NODE_ENV === "development" ? '[PRUEBA] - ':  ''}Nueva Orden ${order.orderNumber} ha sido creada`,
+    text: orderEmailAdmin({order}),
+  });
+
+  console.log("Email admin sent: ", dataAdmin, errorAdmin);
+
+  if (error || errorAdmin) {
+    return {
+      message: 'Error enviando el correo',
+      error: true
+    }
+  }
+
+  console.log("Email sent: ", data, dataAdmin);
+};
+
 const saveOrder = async (prevState: any, data: OrderData) => {
   const { cart, ...orderData } = data;
   const cartId = cart.cartIdentifier;
@@ -97,6 +134,7 @@ const saveOrder = async (prevState: any, data: OrderData) => {
 
     sendEmail({
       to: order.email,
+      from: process.env.EMAIL_FROM ?? '',
       order
     });
 
@@ -117,42 +155,5 @@ function formatNumber(num: number): string {
   const paddedNum = num.toString().padStart(4, '0');
   return paddedNum;
 }
-
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
-  const payload = {
-    from: from,
-    subject: `Tu orden ${order.orderNumber} ha sido creada`,
-    text: `Tu orden ${order.orderNumber} ha sido creada`,
-  }
-
-  const { data, error } = await resend.emails.send({
-    ...payload,
-    to: [to],
-    react: OrderEmail({ order }),
-  });
-
-  console.log("Email client sent: ", data, error);
-
-  const { data: dataAdmin, error: errorAdmin } = await resend.emails.send({
-    ...payload,
-    to: [process.env.EMAIL_CC ?? ''],
-    subject: `${process.env.NODE_ENV === "development" ? '[PRUEBA] - ':  ''}Nueva Orden ${order.orderNumber} ha sido creada`,
-    text: orderEmailAdmin({order}),
-  });
-
-  console.log("Email admin sent: ", dataAdmin, errorAdmin);
-
-  if (error || errorAdmin) {
-    return {
-      message: 'Error enviando el correo',
-      error: true
-    }
-  }
-
-  console.log("Email sent: ", data, dataAdmin);
-};
 
 export default saveOrder;
