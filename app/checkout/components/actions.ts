@@ -46,7 +46,6 @@ type SendEmailData = {
       };
     };
   }>;
-  test?: boolean;
 }
 
 
@@ -134,7 +133,6 @@ const saveOrder = async (prevState: any, data: OrderData) => {
 
     sendEmail({
       to: order.email,
-      from: process.env.EMAIL_FROM ?? '',
       order
     });
 
