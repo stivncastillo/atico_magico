@@ -51,7 +51,7 @@ type SendEmailData = {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order}: SendEmailData) => {
+export const sendEmail =  async ({to, order, from = process.env.EMAIL_FROM ?? ''}: SendEmailData) => {
   const payload = {
     from: from,
     subject: `Tu orden ${order.orderNumber} ha sido creada`,

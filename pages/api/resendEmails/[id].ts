@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import sendEmail from '@/app/checkout/components/actions';
+import {sendEmail} from '@/app/checkout/components/actions';
 import prisma from '@/lib/prisma';
 
 
