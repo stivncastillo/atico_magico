@@ -3,7 +3,7 @@ import { cache } from "react";
 import ProductGrid from "@/app/search/components/ProductGrid";
 import prisma from "@/lib/prisma";
 
-export const revalidate = 3600;
+export const revalidate = 7200;
 
 const getFeaturedProducts = cache(async () => {
   return await prisma.products.findMany({

@@ -1,15 +1,15 @@
 import { Suspense } from "react";
 
-import { MapPinnedIcon, PackagePlusIcon, StarIcon } from "lucide-react";
+import { PackagePlusIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 
 import Carousel from "@/components/display/Carousel";
 import ProductGridSkeleton from "@/components/feedback/productGridSkeleton";
 import FeaturedProducts from "@/components/products/featuredProducts";
 import NewProducts from "@/components/products/newProducts";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
+export const revalidate = 7200;
 
 export default function Home() {
   return (

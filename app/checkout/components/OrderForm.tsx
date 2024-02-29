@@ -21,7 +21,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { required, onlyNumbers, email } from "@/lib/validations";
 
-import { saveOrder } from "./actions";
+import saveOrder from "./actions";
 
 interface OrderFormProps {
   departments: Array<{

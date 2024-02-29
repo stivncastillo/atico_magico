@@ -49,7 +49,7 @@ type SendEmailData = {
   test?: boolean;
 }
 
-export const saveOrder = async (prevState: any, data: OrderData) => {
+const saveOrder = async (prevState: any, data: OrderData) => {
   const { cart, ...orderData } = data;
   const cartId = cart.cartIdentifier;
   const lastOrder = await prisma.order.findFirst({
@@ -57,6 +57,7 @@ export const saveOrder = async (prevState: any, data: OrderData) => {
       createdAt: 'desc'
     }
   });
+
   const total =
   cart?.details.reduce(
     (acc, detail) => acc + detail.product.price * detail.quantity,
@@ -125,8 +126,8 @@ export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order
     from: from,
     subject: `Tu orden ${order.orderNumber} ha sido creada`,
     text: `Tu orden ${order.orderNumber} ha sido creada`,
-
   }
+
   const { data, error } = await resend.emails.send({
     ...payload,
     to: [to],
@@ -154,4 +155,4 @@ export const sendEmail =  async ({to, from = process.env.EMAIL_FROM ?? '', order
   console.log("Email sent: ", data, dataAdmin);
 };
 
-export default sendEmail;
+export default saveOrder;
